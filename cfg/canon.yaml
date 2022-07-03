@@ -1,0 +1,25 @@
+defaults:
+  - DATASOURCE: esc50
+  - FEATURE_EXTRACTOR: default
+  - _self_
+
+OUTPUTS:
+  DIR: /path/to/output_files
+
+MODE: train
+
+MODEL:
+  NAME: vgg8
+  PRETRAINED_PATH: null
+
+TRAINER:
+  RESUME_TRAINING: false
+  LOSS_FN: null
+  EPOCHS: 300
+  BATCH_SIZE: 64
+  LEARNING_RATE: 1e-4
+  CUDA: True
+
+hydra:
+  run:
+    dir: ${OUTPUTS.DIR}

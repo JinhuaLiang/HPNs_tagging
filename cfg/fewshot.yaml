@@ -1,0 +1,49 @@
+defaults:
+  - DATASOURCE: esc50
+  - FEATURE_EXTRACTOR: defaults
+  - _self_
+
+
+OUTPUTS:
+  DIR: /path/to/output_file
+
+
+LEARNER:
+  LABEL_SPLIT:
+    - 0.3  # = (n_novel_class / n_class)
+    - select
+  DATASAMPLING:
+    train: esc50_fs
+    eval: esc50_fs
+  MODE: train
+  NUM_TASK: 32
+  NUM_NVL_CLS: 5
+  NUM_SUPPORT_PER_CLS: 5
+  NUM_QUERY_PER_CLS: 5
+  SHUFFLE_CLASS: true
+  ON_EPISODE: proto
+  MODEL:
+    NAME: vgg8
+    PRETRAINED_PATH: null
+
+  LOSS_FN: null
+  BATCH_SIZE: 1
+  CUDA: True
+
+
+TRAINER:
+  K: 5
+  RESUME_TRAINING: false
+  EPOCHS: 100
+  LEARNING_RATE: 1e-4
+  REQUIRE_PID: false
+
+
+TESTER:
+  NUM_QUERY_PER_CLS: 50
+  SHUFFLE_CLASS: false
+
+
+hydra:
+  run:
+    dir: ${OUTPUTS.DIR}
